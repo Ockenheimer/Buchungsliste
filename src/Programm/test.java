@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Programm;
-
+import Klassen.*;
 /**
  *
  * @author markusschaefer
@@ -16,7 +16,9 @@ public class test {
      */
     public static void main(String[] args) {
         System.out.println("Testfall:");
-        Klassen.Gast.test();
+        //Gast.test();
+        Buchungsliste.test();
+        
     }
 
 }
