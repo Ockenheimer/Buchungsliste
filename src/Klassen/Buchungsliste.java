@@ -6,6 +6,8 @@
 package Klassen;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,7 @@ public class Buchungsliste extends ArrayList<Gast> {
     public Buchungsliste() {
     }
 
+    //Die Gäste zeilenweise ausgeben
     @Override
     public String toString() {
         String ausgabeString = "";
@@ -29,10 +32,15 @@ public class Buchungsliste extends ArrayList<Gast> {
     }
 
     public static void test() {
-        Buchungsliste a = new Buchungsliste();
-        a.add(new Gast("a", 1));
-        a.add(new Gast("b", 2));
-        System.out.println(a);
+        try {
+            Buchungsliste a = new Buchungsliste();
+            a.add(new Gast("a", 1));
+            a.add(new Gast("b", 2));
+            System.out.println(a);
+        } catch (GastExceptions ex) {
+            System.out.println(ex);
+        }
+
     }
 
 }

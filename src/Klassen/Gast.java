@@ -5,6 +5,9 @@
  */
 package Klassen;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author markusschaefer
@@ -17,9 +20,15 @@ public class Gast {
     
     //Gäste müssen gebaut werden
 
-    public Gast(String name, int bett) {
+    public Gast(String name, int bett) throws GastExceptions{
         this.name = name;
         this.bett = bett;
+        
+        //Ein Gast ohen Bett ist kein Gast
+        if (bett<=0){
+            throw new GastExceptions("Ein Gast braucht mindestens ein Bett.");
+            
+        }
     }
 
     public String getName() {
@@ -39,8 +48,12 @@ public class Gast {
     }
     
     public static void test(){
-        Gast g = new Gast("a",2);
-        System.out.println(g);
+        try {
+            Gast g = new Gast("a",2);
+            System.out.println(g);
+        } catch (GastExceptions ex) {
+            Logger.getLogger(Gast.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
                 
     }
