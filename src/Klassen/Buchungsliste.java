@@ -36,6 +36,8 @@ public class Buchungsliste extends ArrayList<Gast> {
             Buchungsliste a = new Buchungsliste();
             a.add(new Gast("a", 1));
             a.add(new Gast("b", 2));
+            //dritter Nutzer
+            a.add(new Gast("c", 3));
             System.out.println(a);
         } catch (GastExceptions ex) {
             System.out.println(ex);
