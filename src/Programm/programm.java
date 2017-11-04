@@ -11,6 +11,7 @@ import Klassen.GastExceptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,14 +52,18 @@ public class programm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jButtonUnbestaetigt = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuDatei = new javax.swing.JMenu();
         jMenuItemDatei1 = new javax.swing.JMenuItem();
         jMenuItemDatei2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemDatei3 = new javax.swing.JMenuItem();
         jMenuBearbeiten = new javax.swing.JMenu();
+        jMenuItemBearbeiten1 = new javax.swing.JMenuItem();
+        jMenuItemBearbeiten2 = new javax.swing.JMenuItem();
         jMenuAbout = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemAbout1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Buchungen für Fulda");
@@ -105,6 +110,13 @@ public class programm extends javax.swing.JFrame {
 
         jLabel8.setText("Personen");
 
+        jButtonUnbestaetigt.setText("<--");
+        jButtonUnbestaetigt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUnbestaetigtActionPerformed(evt);
+            }
+        });
+
         jMenuDatei.setText("Datei");
 
         jMenuItemDatei1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
@@ -114,6 +126,7 @@ public class programm extends javax.swing.JFrame {
         jMenuItemDatei2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemDatei2.setText("Öffnen");
         jMenuDatei.add(jMenuItemDatei2);
+        jMenuDatei.add(jSeparator1);
 
         jMenuItemDatei3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemDatei3.setText("Beenden");
@@ -122,12 +135,24 @@ public class programm extends javax.swing.JFrame {
         jMenuBar1.add(jMenuDatei);
 
         jMenuBearbeiten.setText("Bearbeiten");
+
+        jMenuItemBearbeiten1.setText("Markierten Gast löschen");
+        jMenuItemBearbeiten1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBearbeiten1ActionPerformed(evt);
+            }
+        });
+        jMenuBearbeiten.add(jMenuItemBearbeiten1);
+
+        jMenuItemBearbeiten2.setText("jMenuItem1");
+        jMenuBearbeiten.add(jMenuItemBearbeiten2);
+
         jMenuBar1.add(jMenuBearbeiten);
 
         jMenuAbout.setText("Über");
 
-        jMenuItem1.setText("Über Buchungsliste");
-        jMenuAbout.add(jMenuItem1);
+        jMenuItemAbout1.setText("Über Buchungsliste");
+        jMenuAbout.add(jMenuItemAbout1);
 
         jMenuBar1.add(jMenuAbout);
 
@@ -151,9 +176,10 @@ public class programm extends javax.swing.JFrame {
                                     .addComponent(jButtonBestaetigt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel8)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jButtonUnbestaetigt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -208,6 +234,8 @@ public class programm extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonBestaetigt)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButtonUnbestaetigt)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -246,6 +274,27 @@ public class programm extends javax.swing.JFrame {
         int select = jListAngefragt.getSelectedIndex();
         jTextFieldBettBestaetigt.setText(String.valueOf(buchungsliste.get(select).getBett()));
     }//GEN-LAST:event_jListAngefragtMouseClicked
+
+    private void jMenuItemBearbeiten1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBearbeiten1ActionPerformed
+        if (jListAngefragt.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Bitte einen angefragten Gast zum löschen auswählen.");
+        } else {
+            int loeschen = jListAngefragt.getSelectedIndex();
+            String name = buchungsliste.get(loeschen).getName();
+
+            int eingabe = JOptionPane.showConfirmDialog(rootPane, "Soll der Gast " + name + " wirklich gelöscht werden?", "Bestätigungsanfrage", JOptionPane.YES_NO_OPTION);
+            if (eingabe == 0) {
+                buchungsliste.remove(loeschen);
+                aktuallisiereAnzeige();
+            }
+
+            
+        }
+    }//GEN-LAST:event_jMenuItemBearbeiten1ActionPerformed
+
+    private void jButtonUnbestaetigtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUnbestaetigtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonUnbestaetigtActionPerformed
     public void aktuallisiereAnzeige() {
         jTextFieldName.setText("");
         jTextFieldBett.setText("");
@@ -295,6 +344,7 @@ public class programm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBestaetigt;
+    private javax.swing.JButton jButtonUnbestaetigt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -308,12 +358,15 @@ public class programm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuBearbeiten;
     private javax.swing.JMenu jMenuDatei;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemAbout1;
+    private javax.swing.JMenuItem jMenuItemBearbeiten1;
+    private javax.swing.JMenuItem jMenuItemBearbeiten2;
     private javax.swing.JMenuItem jMenuItemDatei1;
     private javax.swing.JMenuItem jMenuItemDatei2;
     private javax.swing.JMenuItem jMenuItemDatei3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextAreaBestaetigt;
     private javax.swing.JTextField jTextFieldBett;
     private javax.swing.JTextField jTextFieldBettBestaetigt;
